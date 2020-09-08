@@ -17,3 +17,17 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// USERS & GUESTS \\
+Route::resource('products', 'ProductController')->only([
+    'index', 'show'
+]);
+// ADMIN ONLY \\
+Route::group(['middleware' => ['auth:api']], function () {
+    Route::resource('products', 'ProductController')->only([
+        'store', 'update', 'destroy'
+    ]);
+    Route::resource('producttypes', 'ProductTypeController')->except([
+        'store', 'update', 'destroy'
+    ]);
+});
