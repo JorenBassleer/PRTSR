@@ -20,8 +20,8 @@ class ProductResource extends JsonResource
             'name' => $this->name,
             'details' => $this->details,
             'storage' => $this->storage,
-            'type' => new TypeCollection($this->types),
-            'material' => new MaterialCollection($this->materials),
+            'types' => new TypeCollection($this->types),
+            'materials' => new MaterialCollection($this->materials),
             'gender' => new GenderResource($this->gender),
             'links' => [
                 'self' => route('products.show', ['product' => $this->id]),

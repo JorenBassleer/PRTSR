@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Type;
 use Illuminate\Http\Request;
-
+use App\Http\Resources\TypeResource;
+use App\Http\Resources\TypeCollection;
 class TypeController extends Controller
 {
     /**
@@ -14,7 +15,7 @@ class TypeController extends Controller
      */
     public function index()
     {
-        //
+        return new TypeCollection(Type::all());
     }
 
     /**

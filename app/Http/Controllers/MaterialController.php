@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Material;
 use Illuminate\Http\Request;
-
+use App\Http\Resources\MaterialResource;
+use App\Http\Resources\MaterialCollection;
 class MaterialController extends Controller
 {
     /**
@@ -14,7 +15,7 @@ class MaterialController extends Controller
      */
     public function index()
     {
-        //
+        return new MaterialCollection(Material::all());
     }
 
     /**

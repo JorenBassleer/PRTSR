@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h3>{{product.name}}</h3>
+        <h3><a :href="product.links.self.replace('/api','')">{{product.name}}</a></h3>
         <p>{{product.details}}</p>
     </div>
 </template>
@@ -14,6 +14,9 @@ export default {
 <style scoped>
 * {
     margin: 10px;
-    font-size: 20px;
+    font-size: 15px;
+}
+h3 {
+    font-weight: 800;
 }
 </style>

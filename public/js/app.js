@@ -49638,42 +49638,52 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); // COMPONENTS \\
+// LAYOUT \\
 
-Vue.component("ProductList", function () {
-  return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! ./components/ProductList.vue */ "./resources/js/components/ProductList.vue"));
-});
-Vue.component("ProductItem", function () {
-  return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ./components/ProductItem.vue */ "./resources/js/components/ProductItem.vue"));
-});
 Vue.component("TheNavbar", function () {
-  return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./components/TheNavbar.vue */ "./resources/js/components/TheNavbar.vue"));
+  return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./components/layout/TheNavbar.vue */ "./resources/js/components/layout/TheNavbar.vue"));
 });
 Vue.component("TheFooter", function () {
-  return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./components/TheFooter.vue */ "./resources/js/components/TheFooter.vue"));
-});
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+  return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./components/layout/TheFooter.vue */ "./resources/js/components/layout/TheFooter.vue"));
+}); // PAGES \\
 
+Vue.component("TheWelcome", function () {
+  return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ./components/pages/TheWelcome.vue */ "./resources/js/components/pages/TheWelcome.vue"));
+});
+Vue.component("TheApp", function () {
+  return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./components/pages/TheApp.vue */ "./resources/js/components/pages/TheApp.vue"));
+}); // PRODUCTS \\
+
+Vue.component("ProductShow", function () {
+  return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./components/pages/products/ProductShow.vue */ "./resources/js/components/pages/products/ProductShow.vue"));
+});
+Vue.component("ProductCreate", function () {
+  return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./components/pages/products/ProductCreate.vue */ "./resources/js/components/pages/products/ProductCreate.vue"));
+}); // PARTIALS \\
+
+Vue.component("ProductList", function () {
+  return Promise.all(/*! import() */[__webpack_require__.e(8), __webpack_require__.e(10)]).then(__webpack_require__.bind(null, /*! ./components/partials/ProductList.vue */ "./resources/js/components/partials/ProductList.vue"));
+});
+Vue.component("ProductItem", function () {
+  return Promise.all(/*! import() */[__webpack_require__.e(8), __webpack_require__.e(9)]).then(__webpack_require__.bind(null, /*! ./components/partials/ProductItem.vue */ "./resources/js/components/partials/ProductItem.vue"));
+}); // FORMS \\
+// PARTIALS \\
+
+Vue.component("MaterialListForm", function () {
+  return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ./components/forms/partials/MaterialListForm.vue */ "./resources/js/components/forms/partials/MaterialListForm.vue"));
+});
+Vue.component("MaterialItemForm", function () {
+  return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ./components/forms/partials/MaterialItemForm.vue */ "./resources/js/components/forms/partials/MaterialItemForm.vue"));
+});
+Vue.component("TypeListForm", function () {
+  return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ./components/forms/partials/TypeListForm.vue */ "./resources/js/components/forms/partials/TypeListForm.vue"));
+});
+Vue.component("TypeItemForm", function () {
+  return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./components/forms/partials/TypeItemForm.vue */ "./resources/js/components/forms/partials/TypeItemForm.vue"));
+});
 var app = new Vue({
   el: '#app'
 });

@@ -22,20 +22,12 @@
     <div id="app">
         <div class="thePage">
             <header>
-                @section('header')
-                    @include('partials.header')
-                @show
+                <the-navbar />
             </header>
-
             <main class="py-4">
                 @yield('content')
             </main>
-
-            <footer>
-                @section('footer')
-                    @include('partials.footer')
-                @show
-            </footer>
+            <the-footer />
         </div>
     </div>
 </body>

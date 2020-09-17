@@ -6,7 +6,7 @@ use App\Product;
 use App\Gender;
 use App\Material;
 use App\Type;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreProduct;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\ProductCollection;
 class ProductController extends Controller
@@ -27,16 +27,15 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProduct $request)
     {
-        $this->validateProduct($request);
         $product = new Product([
             'name' => $request->name,
             'slug' => $request->slug,
             'details' =>$request->details,
             'description' => $request->description,
             'storage' =>$request->storage,
-            'gender_id' => Gender::where('name', $request->gender)->get()->id,
+            'gender_id' => Gender::where('name', $request->gender)->first()->id,
             ]);
         $product->save();
         foreach($request->types as $type) {
@@ -47,7 +46,7 @@ class ProductController extends Controller
             $material_id = Material::where('name', $material)->first()->id;
             $product->materials()->attach($material_id);
         }
-        return new ProductResource($fishfood);
+        return new ProductResource($product);
     }
 
     /**
@@ -79,30 +78,30 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(StoreProduct $request, Product $product)
     {
-        // Validate submitted product
-        $this->validateProduct($request);
+        // Retrieve the validated input data...
+        $validated = $request->validated();
         // Validate product
         $product->update([
-            'name' => $request->name,
-            'slug' => $request->slug,
-            'details' =>$request->details,
-            'storage' =>$request->storage,
-            'gender_id' => Gender::where('name', $request->gender)->get()->id,
+            'name' => $validated->name,
+            'slug' => $validated->slug,
+            'details' =>$validated->details,
+            'storage' =>$validated->storage,
+            'gender_id' => Gender::where('name', $validated->gender)->get()->id,
             ]);
         // Loop through all the types
         for($i=1; $i<count(Type::all())+1; $i++) {
             // Get the row
-            // Check if id is in request
-            if(isset($request->types[$i])) {
+            // Check if id is in validated
+            if(isset($validated->types[$i])) {
                 // Check if not attached
                 if(!$fishfood->types->contains($i)) {
                     // Attach
                     $fishfood->types()->attach($i);
                 }
             }
-            // Detach since it's not in request
+            // Detach since it's not in validated
             else {
                 $fishfood->types()->detach($i);
             }
@@ -110,8 +109,8 @@ class ProductController extends Controller
         // Loop through all the materials
         for($i=1; $i<count(Material::all())+1; $i++) {
             // Get the row
-            // Check if id is in request
-            if(isset($request->materials[$i])) {
+            // Check if id is in validated
+            if(isset($validated->materials[$i])) {
                 // Check if not attached
                 if(!$fishfood->materials->contains($i)) {
                     // Attach
@@ -139,26 +138,6 @@ class ProductController extends Controller
         }
         else {
             return response()->json(['message' => 'Something went wrong'], 500);
-        }
-    }
-
-    protected function validateProduct(Request $request) {
-        if($request->validate([
-            'name' => 'required|max:100|string|unqiue:products,name',
-            'slug' => 'required|max:10|string|unique:products,slug',
-            'details' => 'required|max:255|string',
-            'storage' => 'integer',
-            'gender'=> "required|string|max:1",
-
-            'types' => "required|array|min:1|exists:types,name",
-            'types.*'=> "required|string|min:1",
-
-            'materials' => "required|array|min:1|exists:materials,name",
-            'materials.*'=> "required|string|min:1",
-        ])) {
-        }
-        else {
-            abort(400);
         }
     }
 }

@@ -31,7 +31,6 @@ export default {
             },
             product_id: '',
             pagination: {},
-            edit: false
         }
     },
 

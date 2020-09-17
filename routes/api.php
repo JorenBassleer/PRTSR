@@ -22,11 +22,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::resource('products', 'ProductController')->only([
     'index', 'show'
 ]);
+Route::resource('products', 'ProductController')->only([
+    'store', 'update', 'destroy'
+]);
+Route::resource('materials', 'MaterialController');
+Route::resource('types', 'TypeController');
+
 // ADMIN ONLY \\
 Route::group(['middleware' => ['auth:api']], function () {
-    Route::resource('products', 'ProductController')->only([
-        'store', 'update', 'destroy'
-    ]);
+    // Route::resource('products', 'ProductController')->only([
+    //     'store', 'update', 'destroy'
+    // ]);
     Route::resource('producttypes', 'ProductTypeController')->except([
         'store', 'update', 'destroy'
     ]);
